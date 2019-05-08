@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import Video from './partial/Video';
@@ -8,17 +8,16 @@ const initialState = {
   isPending: false,
 };
 
-class Home extends PureComponent {
+class Home extends Component {
   state = initialState;
 
-  async componentWillMount(){
-
+  async componentWillMount() {
     const header = new Headers({
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'video/mp4'
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'video/mp4',
     });
 
-    const sentData= {
+    const sentData = {
       method: 'GET',
       mode: 'cors',
       header,
@@ -29,7 +28,7 @@ class Home extends PureComponent {
     });
 
     try {
-      const response = await fetch('/resources.json', sentData)
+      const response = await fetch('/resources.json', sentData);
       const result = await response.json();
       this.setState({
         resources: result.items,
@@ -39,7 +38,6 @@ class Home extends PureComponent {
       this.setState({ isPending: false });
       throw new Error();
     }
-
   }
 
   composeSourceUrl = src => {
@@ -47,9 +45,9 @@ class Home extends PureComponent {
     const FACEBOOK_URL = 'https://www.facebook.com/';
     const YOUTUBE_URL = 'https://www.youtube.com/embed/';
 
-    if(src.source === 'youtube' && !src.videoId) return null;
+    if (src.source === 'youtube' && !src.videoId) return null;
 
-    switch(sourceType) {
+    switch (sourceType) {
       case 'facebook':
         return `${FACEBOOK_URL}${src.videoId}`;
       case 'youtube':
@@ -62,13 +60,15 @@ class Home extends PureComponent {
   renderItems = () => {
     const { resources } = this.state;
 
-    return (resources.map((resource, index) => <Video 
-      key={index}
-      title={resource.title}
-      views={resource.views}
-      source={this.composeSourceUrl(resource)} 
-     />));
-  }
+    return resources.map((resource, index) => (
+      <Video
+        key={index}
+        title={resource.title}
+        views={resource.views}
+        source={this.composeSourceUrl(resource)}
+      />
+    ));
+  };
 
   render() {
     const { isPending } = this.state;
