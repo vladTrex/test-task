@@ -36,7 +36,6 @@ class Home extends PureComponent {
     const sourceType = src.source;
     const FACEBOOK_URL = 'https://www.facebook.com/';
     const YOUTUBE_URL = 'https://www.youtube.com/watch?v=';
-    debugger;
 
     switch(sourceType) {
       case 'facebook':
