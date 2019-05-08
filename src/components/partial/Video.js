@@ -8,17 +8,17 @@ class Video extends Component {
         const { source, title, views } = this.props;
         const videoViews = `${views} views`;
 
-        if (!source) return <Grid item xs={12}>Sorry. Data is missing</Grid>;
+        if (!source) return <Grid item xs={12}>Data is missing</Grid>;
 
         return (
-            <Grid item xs={12}>
-                <Paper>
-                    <div>{title} {videoViews}</div>
-                    <video controls="controls" src={source}>
-                        Sorry, your browser doesn't support embedded videos
-                    </video>
-                </Paper>
-            </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <div>{title} {videoViews}</div>
+              <video controls="controls">
+                <source src={source} />
+              </video>
+            </Paper>
+          </Grid>
         );
     }
 }
