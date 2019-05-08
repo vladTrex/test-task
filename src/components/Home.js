@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 
+import Video from './partial/Video';
+
 const initialState = {
   resources: [],
   isPending: false,
@@ -10,9 +12,16 @@ class Home extends PureComponent {
   state = initialState;
 
   async componentWillMount(){
+
+    const header = new Headers({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'video/mp4'
+    });
+
     const sentData= {
       method: 'GET',
       mode: 'cors',
+      header,
     };
     this.setState({
       isPending: true,
@@ -35,7 +44,7 @@ class Home extends PureComponent {
   composeSourceUrl = src => {
     const sourceType = src.source;
     const FACEBOOK_URL = 'https://www.facebook.com/';
-    const YOUTUBE_URL = 'https://www.youtube.com/watch?v=';
+    const YOUTUBE_URL = 'https://www.youtube.com/embed/';
 
     switch(sourceType) {
       case 'facebook':
@@ -50,9 +59,12 @@ class Home extends PureComponent {
   renderItems = () => {
     const { resources } = this.state;
 
-    return (resources.map((resource, index) => <video controls="controls" key={index} src={this.composeSourceUrl(resource)}>
-      Sorry, your browser doesn't support embedded videos
-    </video>));
+    return (resources.map((resource, index) => <Video 
+      key={index}
+      title={resource.title}
+      views={resource.views}
+      source={this.composeSourceUrl(resource)} 
+     />));
   }
 
   render() {
@@ -61,7 +73,6 @@ class Home extends PureComponent {
     return (
       <Grid container spacing={24}>
         {isPending ? <p>Loading...</p> : this.renderItems()}
-
       </Grid>
     );
   }
