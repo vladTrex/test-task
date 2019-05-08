@@ -11,24 +11,13 @@ const initialState = {
 class Home extends Component {
   state = initialState;
 
-  async componentWillMount() {
-    const header = new Headers({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'video/mp4',
-    });
-
-    const sentData = {
-      method: 'GET',
-      mode: 'cors',
-      header,
-    };
-
+  async componentDidMount() {
     this.setState({
       isPending: true,
     });
 
     try {
-      const response = await fetch('/resources.json', sentData);
+      const response = await fetch('/resources.json');
       const result = await response.json();
       this.setState({
         resources: result.items,
