@@ -23,6 +23,7 @@ class Home extends PureComponent {
       mode: 'cors',
       header,
     };
+
     this.setState({
       isPending: true,
     });
@@ -45,6 +46,8 @@ class Home extends PureComponent {
     const sourceType = src.source;
     const FACEBOOK_URL = 'https://www.facebook.com/';
     const YOUTUBE_URL = 'https://www.youtube.com/embed/';
+
+    if(src.source === 'youtube' && !src.videoId) return null;
 
     switch(sourceType) {
       case 'facebook':
