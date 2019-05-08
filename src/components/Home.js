@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { Component, Fragment } from 'react';
+import Navbar from './partial/Navbar';
 
 import Video from './partial/Video';
 
@@ -62,10 +62,20 @@ class Home extends Component {
   render() {
     const { isPending } = this.state;
 
+    const styles = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'};
+
     return (
-      <Grid container spacing={24}>
-        {isPending ? <p>Loading...</p> : this.renderItems()}
-      </Grid>
+      <Fragment>
+        <Navbar/>
+        <div style={styles}>
+          {isPending ? <p>Loading...</p> : this.renderItems()}
+        </div>
+      </Fragment>
+
     );
   }
 }
