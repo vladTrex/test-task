@@ -13,14 +13,23 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
   },
-  textBlock: {
+  itemTitle: {
     width: '50%',
     padding: '10px',
   },
-  viewsBlock: {
+  itemViews: {
     width: '50%',
     textAlign: 'right',
     padding: '10px',
+  },
+  dataIsMissingBlock: {
+    height: '220px',
+    width: '40%',
+    border: '1px solid #ccc',
+  },
+  dataIsMissingText: {
+    marginTop: '100px',
+    textAlign: 'center',
   },
 };
 
@@ -29,13 +38,13 @@ class Video extends Component {
     const { source, title, views } = this.props;
     const videoViews = `${views} views`;
 
-    if (!source) return <Grid item xs={12}>Data is missing</Grid>;
+    if (!source) return <div style={styles.dataIsMissingBlock}><p style={styles.dataIsMissingText}>Data is missing</p></div>;
 
     return (
       <div style={styles.videoContainer}>
         <div style={styles.infoBar}>
-          <div style={styles.textBlock}>{title}</div>
-          <div style={styles.viewsBlock}>{videoViews}</div>
+          <div style={styles.itemTitle}>{title}</div>
+          <div style={styles.itemViews}>{videoViews}</div>
         </div>
         <video width="100%" controls="controls">
           <source src={source}/>
