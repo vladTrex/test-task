@@ -66,16 +66,16 @@ class Home extends Component {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'column'};
+      flexDirection: 'column',
+    };
 
     return (
       <Fragment>
-        <Navbar/>
+        <Navbar />
         <div style={styles}>
           {isPending ? <p>Loading...</p> : this.renderItems()}
         </div>
       </Fragment>
-
     );
   }
 }
